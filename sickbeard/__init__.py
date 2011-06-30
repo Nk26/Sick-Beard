@@ -222,6 +222,13 @@ TWITTER_USERNAME = None
 TWITTER_PASSWORD = None
 TWITTER_PREFIX = None
 
+USE_SMS = False
+SMS_NOTIFY_ONSNATCH = False
+SMS_NOTIFY_ONDOWNLOAD = False
+SMS_EMAIL = None
+SMS_PASSWORD = None
+SMS_PHONENUMBER = None
+
 USE_NOTIFO = False
 NOTIFO_NOTIFY_ONSNATCH = False
 NOTIFO_NOTIFY_ONDOWNLOAD = False
@@ -352,6 +359,7 @@ def initialize(consoleLogging=True):
                 SEARCH_FREQUENCY, DEFAULT_SEARCH_FREQUENCY, BACKLOG_SEARCH_FREQUENCY, \
                 QUALITY_DEFAULT, SEASON_FOLDERS_FORMAT, SEASON_FOLDERS_DEFAULT, STATUS_DEFAULT, \
                 GROWL_NOTIFY_ONSNATCH, GROWL_NOTIFY_ONDOWNLOAD, TWITTER_NOTIFY_ONSNATCH, TWITTER_NOTIFY_ONDOWNLOAD, \
+                SMS_NOTIFY_ONSNATCH, SMS_NOTIFY_ONDOWNLOAD, \
                 USE_GROWL, GROWL_HOST, GROWL_PASSWORD, USE_PROWL, PROWL_NOTIFY_ONSNATCH, PROWL_NOTIFY_ONDOWNLOAD, PROWL_API, PROWL_PRIORITY, PROG_DIR, NZBMATRIX, NZBMATRIX_USERNAME, \
                 NZBMATRIX_APIKEY, versionCheckScheduler, VERSION_NOTIFY, PROCESS_AUTOMATICALLY, \
                 KEEP_PROCESSED_DIR, TV_DOWNLOAD_DIR, TVDB_BASE_URL, MIN_SEARCH_FREQUENCY, \
@@ -361,6 +369,7 @@ def initialize(consoleLogging=True):
                 NAMING_EP_NAME, NAMING_SEP_TYPE, NAMING_USE_PERIODS, WOMBLE, \
                 NZBSRUS, NZBSRUS_UID, NZBSRUS_HASH, NAMING_QUALITY, providerList, newznabProviderList, \
                 NAMING_DATES, EXTRA_SCRIPTS, USE_TWITTER, TWITTER_USERNAME, TWITTER_PASSWORD, TWITTER_PREFIX, \
+                USE_SMS, SMS_EMAIL, SMS_PASSWORD, SMS_PHONENUMBER, \
                 USE_NOTIFO, NOTIFO_USERNAME, NOTIFO_APISECRET, NOTIFO_NOTIFY_ONDOWNLOAD, NOTIFO_NOTIFY_ONSNATCH, \
                 USE_LIBNOTIFY, LIBNOTIFY_NOTIFY_ONSNATCH, LIBNOTIFY_NOTIFY_ONDOWNLOAD, USE_NMJ, NMJ_HOST, NMJ_DATABASE, NMJ_MOUNT, USE_SYNOINDEX, \
                 USE_BANNER, USE_LISTVIEW, METADATA_XBMC, METADATA_MEDIABROWSER, METADATA_PS3, metadata_provider_dict, \
@@ -556,6 +565,13 @@ def initialize(consoleLogging=True):
         TWITTER_USERNAME = check_setting_str(CFG, 'Twitter', 'twitter_username', '')
         TWITTER_PASSWORD = check_setting_str(CFG, 'Twitter', 'twitter_password', '')
         TWITTER_PREFIX = check_setting_str(CFG, 'Twitter', 'twitter_prefix', 'Sick Beard')
+
+        USE_SMS = bool(check_setting_int(CFG, 'Sms', 'use_sms', 0))
+        SMS_NOTIFY_ONSNATCH = bool(check_setting_int(CFG, 'Sms', 'sms_notify_onsnatch', 0))
+        SMS_NOTIFY_ONDOWNLOAD = bool(check_setting_int(CFG, 'Sms', 'sms_notify_ondownload', 0))        
+        SMS_EMAIL = check_setting_str(CFG, 'Sms', 'sms_email', '')
+        SMS_PASSWORD = check_setting_str(CFG, 'Sms', 'sms_password', '')
+        SMS_PHONENUMBER = check_setting_str(CFG, 'Sms', 'sms_phonenumber', '')
 
         USE_NOTIFO = bool(check_setting_int(CFG, 'Notifo', 'use_notifo', 0))
         NOTIFO_NOTIFY_ONSNATCH = bool(check_setting_int(CFG, 'Notifo', 'notifo_notify_onsnatch', 0))
@@ -1050,6 +1066,14 @@ def save_config():
     new_config['Twitter']['twitter_username'] = TWITTER_USERNAME
     new_config['Twitter']['twitter_password'] = TWITTER_PASSWORD
     new_config['Twitter']['twitter_prefix'] = TWITTER_PREFIX
+
+    new_config['Sms'] = {}
+    new_config['Sms']['use_sms'] = int(USE_SMS)
+    new_config['Sms']['sms_notify_onsnatch'] = int(SMS_NOTIFY_ONSNATCH)
+    new_config['Sms']['sms_notify_ondownload'] = int(SMS_NOTIFY_ONDOWNLOAD)
+    new_config['Sms']['sms_email'] = SMS_EMAIL
+    new_config['Sms']['sms_password'] = SMS_PASSWORD
+    new_config['Sms']['sms_phonenumber'] = SMS_PHONENUMBER
 
     new_config['Notifo'] = {}
     new_config['Notifo']['use_notifo'] = int(USE_NOTIFO)
